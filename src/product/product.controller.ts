@@ -27,4 +27,9 @@ export class ProductController {
     ): Promise<Product> {
         return this.productService.updateProductInfo(id, updateProductDto)
     }
+
+    @Get('/:id/reviews')
+    getProductWithReview(@Param('id') id:number): Promise<Product> {
+        return this.productService.getProductWithReviews(id)
+    }
 }

@@ -1,5 +1,5 @@
-import { BaseEntity, Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
-
+import { BaseEntity, Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
+import { Review } from "src/review/review.entity";
 @Entity()  
 export class Product extends BaseEntity {
     @PrimaryGeneratedColumn()
@@ -19,4 +19,7 @@ export class Product extends BaseEntity {
 
     @UpdateDateColumn({name: 'updated_at', type:'timestamp'})
     updated_at!: Date;
+
+    @OneToMany(() => Review, (review) => review.product)
+    reviews!: Review[]
 }

@@ -15,6 +15,9 @@ import { Product } from './product.entity';
   providers: [
     ProductService,
     ProductRepository
+  ],
+  exports: [
+    ProductRepository
   ]
 })
 export class ProductModule {}

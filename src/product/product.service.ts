@@ -39,4 +39,14 @@ export class ProductService {
 
         return await this.productRepository.save(product);
     }
+
+    async getProductWithReviews(id: number): Promise<Product> {
+        const found =  this.productRepository.findOneOrFail({
+            where: { id },
+            relations: ['reviews'],
+        });
+
+        return found
+    }
+    
 }
