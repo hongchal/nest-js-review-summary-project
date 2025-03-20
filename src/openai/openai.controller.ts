@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Param } from '@nestjs/common';
 import { createChatCompletionRequest } from './dto/create-chat-completion.request';
 import { OpenaiService } from './openai.service';
 
@@ -14,6 +14,14 @@ export class OpenaiController {
         @Body() body: createChatCompletionRequest 
     ){
         return this.openaiService.createChatCompletion(body.messages)
+    }
+
+    @Post('/:productId/summerize')
+    async productReviewSummerzie(
+        @Param('productId') productId: number
+    ) {
+        const summary = this.openaiService.createSummary(productId)
+        return summary
     }
 
 }
