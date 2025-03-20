@@ -1,5 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Product } from "src/product/product.entity";
+import { User } from "src/auth/user.entity";
 
 @Entity()
 export class Review extends BaseEntity {
@@ -9,6 +10,10 @@ export class Review extends BaseEntity {
     @ManyToOne(() => Product, (product) => product.reviews)
     @JoinColumn({name: 'product_id'})
     product!: Product
+
+    @ManyToOne(() => User, (user) => user.reviews)
+    @JoinColumn({name: 'user_id'})
+    user!: User;
 
     @Column()
     comment: string;    

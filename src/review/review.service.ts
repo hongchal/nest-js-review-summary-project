@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ReviewRepository } from './review.repository';
 import { WriteReviewDto } from './dto/write-review.dto';
 import { Review } from './review.entity';
+import { User } from 'src/auth/user.entity';
 
 @Injectable()
 export class ReviewService {
@@ -11,7 +12,7 @@ export class ReviewService {
         private reviewRepository: ReviewRepository
     ) {}
 
-    async createReview(writeReviewDto: WriteReviewDto): Promise<Review>{
-        return this.reviewRepository.createAndSave(writeReviewDto)
+    async createReview(writeReviewDto: WriteReviewDto, user: User): Promise<Review>{
+        return this.reviewRepository.createAndSave(writeReviewDto, user)
     }
 }

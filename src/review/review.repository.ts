@@ -4,6 +4,7 @@ import { DataSource, Repository } from "typeorm";
 import { WriteReviewDto } from "./dto/write-review.dto";
 import { ProductRepository } from "src/product/product.repository";
 import { InjectRepository } from "@nestjs/typeorm";
+import { User } from "src/auth/user.entity";
 
 @Injectable()
 export class ReviewRepository extends Repository<Review>{
@@ -18,7 +19,7 @@ export class ReviewRepository extends Repository<Review>{
         
     }
 
-    async createAndSave(wirteReviewDto: WriteReviewDto): Promise<Review> {
+    async createAndSave(wirteReviewDto: WriteReviewDto, user: User): Promise<Review> {
         const { productId, comment } = wirteReviewDto
         const product = await this.productRepository.findOne({where: {id: productId}});
 
@@ -29,7 +30,8 @@ export class ReviewRepository extends Repository<Review>{
 
         const review = this.create({
             product,
-            comment
+            comment,
+            user
         })
         
         await this.save(review);

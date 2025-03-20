@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique, OneToMany } from "typeorm";
+import { Review } from "src/review/review.entity";
 
 @Entity()
 @Unique(["email"])
@@ -11,4 +12,7 @@ export class User extends BaseEntity {
 
     @Column()
     password: string;
+
+    @OneToMany(() => Review, (review) => review.product)
+    reviews!: Review[]
 }
